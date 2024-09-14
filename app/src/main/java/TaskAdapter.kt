@@ -4,7 +4,7 @@ import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sharedpwithrv.databinding.ItemLayoutBinding
 
-class TaskAdapter (private val tasklist:MutableList<Task>, private val clicklisten:TaskClickLister )
+class TaskAdapter (private val tasklist:MutableList<Player>, private val clicklisten:TaskClickLister )
     : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>()
 {
     interface TaskClickLister {
@@ -14,8 +14,12 @@ class TaskAdapter (private val tasklist:MutableList<Task>, private val clicklist
 
     class TaskViewHolder(val binding:ItemLayoutBinding):RecyclerView.ViewHolder(binding.root) {
 
-fun bind(task:Task){
-    binding.txt.text = task.title
+fun bind(task:Player){
+    binding.Ntxt.text = task.Name
+    binding.Atxt.text = task.Age.toString()
+    binding.Stxt.text = task.Status
+    binding.Rtxt.text= task.Rating.toString()
+
 }
     }
 

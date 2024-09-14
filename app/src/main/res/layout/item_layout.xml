@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="15dp"
     android:layout_marginHorizontal="10dp"
@@ -18,14 +18,14 @@
             android:id="@+id/cb"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.496" />
 
         <TextView
-            android:id="@+id/txt"
+            android:id="@+id/Ntxt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -39,6 +39,52 @@
             app:layout_constraintStart_toEndOf="@+id/cb"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/Atxt"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textAllCaps="true"
+            android:textColor="#FFEB3B"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintEnd_toStartOf="@+id/add"
+            app:layout_constraintStart_toEndOf="@+id/cb"
+            app:layout_constraintTop_toBottomOf="@+id/Ntxt"
+            app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/Stxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textAllCaps="true"
+            android:textColor="#FFEB3B"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintEnd_toStartOf="@+id/add"
+            app:layout_constraintStart_toEndOf="@+id/cb"
+            app:layout_constraintTop_toBottomOf="@+id/Atxt"
+            app:layout_constraintVertical_bias="0.0" />
+        <TextView
+        android:id="@+id/Rtxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textAllCaps="true"
+        android:textColor="#FFEB3B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@+id/add"
+        app:layout_constraintStart_toEndOf="@+id/cb"
+        app:layout_constraintTop_toBottomOf="@id/Stxt"
+        app:layout_constraintVertical_bias="0.0" />
+
 
         <ImageButton
             android:id="@+id/add"
@@ -49,19 +95,19 @@
 
             app:layout_constraintEnd_toStartOf="@+id/delete"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.625" />
+            app:layout_constraintVertical_bias="0.458" />
 
         <ImageButton
             android:id="@+id/delete"
             android:layout_width="33dp"
             android:layout_height="41dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="4dp"
             android:src="@drawable/delete"
             app:layout_constraintBottom_toBottomOf="parent"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.555" />
+            app:layout_constraintVertical_bias="0.462" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

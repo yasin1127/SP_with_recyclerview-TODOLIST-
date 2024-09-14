@@ -1,6 +1,6 @@
 package com.example.sharedpwithrv
 
-import Task
+import Player
 import TaskAdapter
 import android.content.Context
 import android.content.SharedPreferences
@@ -8,20 +8,21 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var tasklist: MutableList<Task>
+    private lateinit var tasklist: MutableList<Player>
     private lateinit var recyclerView: RecyclerView
     private lateinit var taskadapter: TaskAdapter
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var editTaskEditTask: EditText
+    private lateinit var aet:EditText
+    private lateinit var set:EditText
+    private lateinit var ret:EditText
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.Rv)
         editTaskEditTask = findViewById(R.id.editText)
+        aet = findViewById(R.id.ageeT)
+        set = findViewById(R.id.statusT)
+        ret = findViewById(R.id.ratingT)
         tasklist = retrieveTask()
 
 
@@ -39,21 +43,31 @@ class MainActivity : AppCompatActivity() {
         val saveButton: Button = findViewById(R.id.btn)
 
         saveButton.setOnClickListener {
-            val taskText = editTaskEditTask.text.toString()
-            if(taskText.isNotEmpty()){
-               val task =Task(taskText,false)
+            val NameText = editTaskEditTask.text.toString()
+            val AgeText = aet.text.toString().toInt()
+            val StatusText =set.text.toString()
+            val RatingText=ret.text.toString().toInt()
+            if(NameText.isNotEmpty()){
+               val task =Player(NameText,AgeText,StatusText,RatingText,true)
                 tasklist.add(task)
                 saveTask(tasklist)
                 taskadapter.notifyItemInserted(tasklist.size-1)
                 editTaskEditTask.text.clear()
+                aet.text.clear()
+                set.text.clear()
+                ret.text.clear()
+
             }
             else{
-                Toast.makeText(this,"Task tittle can't be empty",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Player Field  can't be empty",Toast.LENGTH_SHORT).show()
             }
         }
         taskadapter= TaskAdapter(tasklist,object : TaskAdapter.TaskClickLister{
             override fun onEditClick(position: Int) {
-            editTaskEditTask.setText(tasklist[position].title)
+            editTaskEditTask.setText(tasklist[position].Name)
+                aet.setText(tasklist[position].Age)
+                set.setText(tasklist[position].Status)
+                ret.setText(tasklist[position].Rating)
                 tasklist.removeAt(position)
                 taskadapter.notifyDataSetChanged()
             }
@@ -74,13 +88,23 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager= LinearLayoutManager(this)
     }
 
-    private fun saveTask(tasklist: MutableList<Task>) {
+    private fun saveTask(tasklist: MutableList<Player>) {
     val editor = sharedPreferences.edit()
         val taskset = HashSet<String>()
 
-        tasklist.forEach{ taskset.add(it.title)}
-        editor.putStringSet("tasks", taskset)
+        tasklist.forEach{ taskset.add(it.Name)}
+        editor.putStringSet("Name", taskset)
         editor.apply()
+        tasklist.forEach{taskset.add(it.Age.toString())}
+        editor.putStringSet("Age", taskset)
+        editor.apply()
+        tasklist.forEach{taskset.add(it.Status)}
+        editor.putStringSet("Status", taskset)
+        editor.apply()
+        tasklist.forEach{taskset.add(it.Rating.toString())}
+        editor.putStringSet("Rating", taskset)
+        editor.apply()
+
     }
 
     private fun deleteTask(position: Int) {
@@ -89,9 +113,9 @@ class MainActivity : AppCompatActivity() {
         saveTask(tasklist)
     }
 
-    private fun retrieveTask(): MutableList<Task> {
+    private fun retrieveTask(): MutableList<Player> {
     val tasks = sharedPreferences.getStringSet("tasks", HashSet())?:HashSet()
-        return tasks.map{Task(it, false)}.toMutableList()
+        return tasks.map{Player(it,0,it ,0 ,false)}.toMutableList()
     }
 
 }
